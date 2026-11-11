@@ -1,4 +1,20 @@
 <?php
+// ★ここに call_api 関数を貼る
+function call_api($path, $params = []) {
+    $url = 'http://127.0.0.1:5000' . $path . '?' . http_build_query($params);
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 10,
+    ]);
+    $body = curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($body === false || $code !== 200) return null;
+    return json_decode($body, true);
+}
+
 // POSTデータを安全に取得（3つの絞り込み条件のみ）
 $price_range = isset($_POST['price_range']) ? $_POST['price_range'] : '';
 $genre       = isset($_POST['genre']) ? $_POST['genre'] : '';
@@ -12,28 +28,15 @@ if ($price_range === '' && $genre === '' && $time_limit === '') {
     $error_message = '検索条件を少なくとも1つ以上選択してください。';
 } else {
     // 1. Pythonスクリプトのパス
-    $python_script = 'scraper.py';
-    
-    // 2. 引数を3つ（価格帯、ジャンル、時間上限）に調整してPythonに渡す
-    $cmd = sprintf(
-        'python3 %s %s %s %s',
-        escapeshellarg($python_script),
-        escapeshellarg($price_range),
-        escapeshellarg($genre),
-        escapeshellarg($time_limit)
-    );
+        $results = call_api('/api/search', [
+        'price_range' => $price_range,
+        'genre'       => $genre,
+        'time_limit'  => $time_limit,
+    ]);
 
-    // 3. Pythonを実行し、結果を受け取る
-    $output = shell_exec($cmd);
-
-    if ($output === null) {
-        $error_message = 'Pythonスクリプトの実行に失敗しました（サーバー環境を確認してください）。';
-    } else {
-        $results = json_decode($output, true);
-        
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            $results = [];
-        }
+    if ($results === null) {
+        $error_message = 'APIサーバーに接続できませんでした。';
+        $results = [];
     }
 }
 ?>
