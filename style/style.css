@@ -84,3 +84,21 @@ button[type="submit"]:hover {
 button[type="submit"]:active {
     background: linear-gradient(to bottom, #588a00 0%, #466e00 100%);
 }
+/* プルダウン（select）のサイズやデザイン調整 */
+select {
+    width: 100%;
+    padding: 12px 14px;  /* 上下の余白を広げて大きくする */
+    background-color: #171a21;
+    border: 1px solid #2a475e;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 1rem;     /* 文字サイズを調整（大きめにするなら 1.1rem などに） */
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+select:focus {
+    outline: none;
+    border-color: #66c0f4;
+    box-shadow: 0 0 5px rgba(102, 192, 244, 0.5);
+}
