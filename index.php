@@ -11,6 +11,11 @@
     
     <!-- データを送信するためのフォーム（receive.phpへ送信） -->
     <form action="receive.php" method="POST">
+        <!-- ゲーム名の検索ボックス -->
+        <div>
+            <label for="keyword">ゲーム名:</label>
+            <input type="text" id="keyword" name="keyword" maxlength="100">
+        </div>
         <!-- 価格帯のプルダウン -->
         <div>
             <label for="price_range">価格帯:</label>

@@ -1,5 +1,6 @@
 <?php
 // POSTデータを安全に取得（3つの絞り込み条件のみ）
+$keyword     = isset($_POST['keyword']) ? trim($_POST['keyword']) : '';
 $price_range = isset($_POST['price_range']) ? $_POST['price_range'] : '';
 $genre       = isset($_POST['genre']) ? $_POST['genre'] : '';
 $time_limit  = isset($_POST['time_limit']) ? $_POST['time_limit'] : '';
@@ -8,10 +9,11 @@ $results = [];
 $error_message = '';
 
 // すべて「指定なし」になっていないかチェック
-if ($price_range === '' && $genre === '' && $time_limit === '') {
+if ($keyword === '' && $price_range === '' && $genre === '' && $time_limit === '') {
     $error_message = '検索条件を少なくとも1つ以上選択してください。';
 } else {
     $url = 'http://127.0.0.1:5000/api/search?' . http_build_query([
+        'keyword'     => $keyword,
         'price_range' => $price_range,
         'genre'       => $genre,
         'time_limit'  => $time_limit,
