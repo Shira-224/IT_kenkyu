@@ -1,0 +1,86 @@
+/* Steam風ダークテーマのスタイル */
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background-color: #1b2838; /* Steamの背景色に近いダークネイビー */
+    color: #c7d5e0;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+form {
+    background-color: #2a475e; /* 少し明るいSteam風パネルカラー */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+}
+
+div {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #66c0f4; /* Steamブルー */
+    font-size: 0.95rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: #171a21;
+    border: 1px solid #2a475e;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]::placeholder {
+    color: #626c7d;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #66c0f4;
+    box-shadow: 0 0 5px rgba(102, 192, 244, 0.5);
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to bottom, #75b900 0%, #588a00 100%); /* Steamの緑ボタン風 */
+    border: none;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(to bottom, #86d400 0%, #639b00 100%);
+}
+
+button[type="submit"]:active {
+    background: linear-gradient(to bottom, #588a00 0%, #466e00 100%);
+}
