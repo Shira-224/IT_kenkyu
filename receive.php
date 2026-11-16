@@ -6,24 +6,37 @@ $genre       = isset($_POST['genre']) ? $_POST['genre'] : '';
 $time_limit  = isset($_POST['time_limit']) ? $_POST['time_limit'] : '';
 $page        = isset($_POST['page']) ? max(1, (int)$_POST['page']) : 1;
 
-// 条件バッジ用の日本語ラベルマッピング
+// 条件バッジ用の日本語ラベルマッピング（index.phpの変更に合わせて大幅更新）
 $price_labels = [
-    'free'       => '無料プレイ',
-    'under_1000' => '1,000円以下',
-    'under_3000' => '3,000円以下',
-    'over_3000'  => '3,000円以上',
+    'free'       => '無料 (Free)',
+    '1_2000'     => '1〜2,000円',
+    '2001_4000'  => '2,001〜4,000円',
+    '4001_6000'  => '4,001〜6,000円',
+    '6001_8000'  => '6,001〜8,000円',
+    '8001_10000' => '8,001〜10,000円',
+    'over_10000' => '10,000円以上',
 ];
 $genre_labels = [
-    'action'   => 'アクション',
-    'rpg'      => 'RPG',
-    'indie'    => 'インディー',
-    'fps'      => 'FPS / シューター',
-    'strategy' => 'ストラテジー',
+    'action'        => 'アクション',
+    'rpg'           => 'RPG',
+    'fps'           => 'FPS / シューター',
+    'strategy'      => 'ストラテジー',
+    'simulation'    => 'シミュレーション',
+    'adventure'     => 'アドベンチャー',
+    'sports_racing' => 'スポーツ / レーシング',
+    'puzzle'        => 'パズル',
+    'casual'        => 'カジュアル',
+    'horror'        => 'ホラー',
+    'indie'         => 'インディー',
 ];
 $time_labels = [
-    'under_5'  => '5時間未満',
-    'under_20' => '20時間未満',
-    'over_20'  => '20時間以上',
+    'under_1' => '1時間未満',
+    '1_2'     => '1〜2時間',
+    '2_4'     => '2〜4時間',
+    '4_6'     => '4〜6時間',
+    '6_8'     => '6〜8時間',
+    '8_10'    => '8〜10時間',
+    'over_10' => '10時間以上',
 ];
 
 $active_conditions = [];
@@ -393,7 +406,7 @@ $rank_weights = ['SSS' => 1, 'S' => 2, 'A' => 3, 'B' => 4, 'C' => 5];
                     return parseFloat(a.dataset.unit) - parseFloat(b.dataset.unit);
                 } else if (sortBy === 'hours_desc') {
                     return parseFloat(b.dataset.hours) - parseFloat(a.dataset.hours);
-                } else if (sortBy === 'price_asc') {
+                } else if (sortBy === 'price_asc') {D
                     return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
                 } else {
                     return parseInt(a.dataset.index) - parseInt(b.dataset.index);
