@@ -56,7 +56,6 @@
             <label for="time_limit">プレイ時間:</label>
             <select id="time_limit" name="time_limit">
                 <option value="">指定なし</option>
-                <option value="under_1">1時間未満</option>
                 <option value="1_2">1〜2時間</option>
                 <option value="2_4">2〜4時間</option>
                 <option value="4_6">4〜6時間</option>

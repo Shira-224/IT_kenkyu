@@ -1,4 +1,6 @@
 <?php
+set_time_limit(90);
+
 // POSTデータを安全に取得
 $keyword     = isset($_POST['keyword']) ? trim($_POST['keyword']) : '';
 $price_range = isset($_POST['price_range']) ? $_POST['price_range'] : '';
@@ -6,7 +8,7 @@ $genre       = isset($_POST['genre']) ? $_POST['genre'] : '';
 $time_limit  = isset($_POST['time_limit']) ? $_POST['time_limit'] : '';
 $page        = isset($_POST['page']) ? max(1, (int)$_POST['page']) : 1;
 
-// 条件バッジ用の日本語ラベルマッピング（index.phpの変更に合わせて大幅更新）
+// 条件バッジ用の日本語ラベルマッピング
 $price_labels = [
     'free'       => '無料 (Free)',
     '1_2000'     => '1〜2,000円',
@@ -70,7 +72,7 @@ if (empty($active_conditions)) {
     $ch = curl_init($url);
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_TIMEOUT        => 60,
     ]);
     $response  = curl_exec($ch);
     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -371,7 +373,7 @@ $rank_weights = ['SSS' => 1, 'S' => 2, 'A' => 3, 'B' => 4, 'C' => 5];
                     </form>
                 <?php endif; ?>
 
-                <?php if (!empty($results)): ?>
+                <?php if (!empty($results) || $time_limit !== ''): ?>
                     <form method="POST" action="receive.php" style="margin: 0;">
                         <input type="hidden" name="keyword" value="<?php echo htmlspecialchars($keyword, ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="price_range" value="<?php echo htmlspecialchars($price_range, ENT_QUOTES, 'UTF-8'); ?>">
@@ -406,7 +408,7 @@ $rank_weights = ['SSS' => 1, 'S' => 2, 'A' => 3, 'B' => 4, 'C' => 5];
                     return parseFloat(a.dataset.unit) - parseFloat(b.dataset.unit);
                 } else if (sortBy === 'hours_desc') {
                     return parseFloat(b.dataset.hours) - parseFloat(a.dataset.hours);
-                } else if (sortBy === 'price_asc') {D
+                } else if (sortBy === 'price_asc') {
                     return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
                 } else {
                     return parseInt(a.dataset.index) - parseInt(b.dataset.index);
